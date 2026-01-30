@@ -1,0 +1,80 @@
+@font-face {
+    font-family: "Audiowide";
+    src: url("fonts/Audiowide-Regular.ttf") format("truetype");
+    font-weight: normal;
+    font-style: normal;
+}
+
+html, body {
+    font-family: "Audiowide", sans-serif;
+    height: 100%;
+}
+
+.navbar {
+  display: flex;
+  align-items: center;
+}
+
+.nav-links {
+  margin-left: auto;
+  display: flex;
+  gap: 24px;
+}
+
+.navbar-bg {
+  background-color: #004aad;
+}
+
+body {
+  background-image: url("images/bg.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-attachment: fixed;
+}
+
+.staff-container {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); /* 4 per row */
+  gap: 40px;
+  max-width: 1200px;
+  margin: 60px auto;
+  padding: 0 20px;
+}
+
+.staff-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.staff-card img {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.name {
+  margin-top: 12px;
+  font-weight: 600;
+}
+
+.role {
+  font-size: 0.9rem;
+  color: #555;
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+  .staff-container {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 500px) {
+  .staff-container {
+    grid-template-columns: 1fr;
+  }
+}

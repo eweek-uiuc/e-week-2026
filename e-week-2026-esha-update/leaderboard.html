@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <link
+      href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>2026 Engineering Week UIUC</title>
+    <style>
+        body {
+            background-color: #05070a;
+            color: #e2e8f0;
+            font-family: 'Space Grotesk', sans-serif;
+            /* Simple CSS Stars */
+            background-image: 
+                radial-gradient(white, rgba(255,255,255,.2) 2px, transparent 40px),
+                radial-gradient(white, rgba(255,255,255,.15) 1px, transparent 30px);
+            background-size: 550px 550px, 350px 350px;
+            background-position: 0 0, 40px 60px;
+        }
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .glow-hover:hover {
+            box-shadow: 0 0 20px rgba(59, 130, 246, 0.5);
+            border-color: #3b82f6;
+        }
+    </style>
+  </head>
+
+    <body class="bg-gray-50 text-gray-900">
+        <!-- navbar -->
+       <header class="navbar-bg text-white">
+          <div class="container mx-auto flex items-center p-4">
+            <nav class="w-full">
+              <ul class="flex justify-end space-x-6">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="staff.html">Staff</a></li>
+                <li><a href="cheap_lunch.html">Cheap Lunch</a></li>
+                <li><a href="schedule.html">Schedule</a></li>
+                <li><a href="leaderboard.html">Leaderboard</a></li>
+                <li><a href="sign_up_link.html">Sign Up</a></li>
+                <li><a href="faq.html">FAQ</a></li>
+              </ul>
+            </nav>
+          </div>
+        </header>
+    <div class="max-w-4xl mx-auto">
+        <h1 class="text-4xl font-bold text-center mb-8 text-blue-400 tracking-widest uppercase">Squadron Standings</h1>
+        
+        <div class="glass-panel p-4 rounded-2xl bg-white/5 border border-white/10 overflow-hidden shadow-2xl shadow-blue-900/20">
+            <iframe 
+                src="https://docs.google.com/spreadsheets/d/e/2PACX-1vTD5iQo4tI0_-RxQzIGmmTcf-FrXBvkcXEDSIzW4TAzWhsAH1kcrPJX7tt_lkmwF2ADqx8vqfarTmwM/pubhtml?gid=0&amp;single=true&amp;widget=true&amp;headers=false"></iframe>
+            </iframe>
+        </div>
+        
+        <p class="text-center mt-6 text-slate-500 text-sm italic underline">
+            *Updates automatically every 5 minutes
+        </p>
+    </div>
+</body>
+</html>

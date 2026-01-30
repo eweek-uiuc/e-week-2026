@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <link
+      href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>2026 Engineering Week UIUC</title>
+    <style>
+        body {
+            background-color: #05070a;
+            color: #e2e8f0;
+            font-family: 'Space Grotesk', sans-serif;
+            /* Simple CSS Stars */
+            background-image: 
+                radial-gradient(white, rgba(255,255,255,.2) 2px, transparent 40px),
+                radial-gradient(white, rgba(255,255,255,.15) 1px, transparent 30px);
+            background-size: 550px 550px, 350px 350px;
+            background-position: 0 0, 40px 60px;
+        }
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .glow-hover:hover {
+            box-shadow: 0 0 20px rgba(59, 130, 246, 0.5);
+            border-color: #3b82f6;
+        }
+    </style>
+  </head>
+
+    <body class="bg-gray-50 text-gray-900">
+        <!-- navbar -->
+       <header class="navbar-bg text-white">
+          <div class="container mx-auto flex items-center p-4">
+            <nav class="w-full">
+              <ul class="flex justify-end space-x-6">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="staff.html">Staff</a></li>
+                <li><a href="cheap_lunch.html">Cheap Lunch</a></li>
+                <li><a href="schedule.html">Schedule</a></li>
+                <li><a href="leaderboard.html">Leaderboard</a></li>
+                <li><a href="sign_up_link.html">Sign Up</a></li>
+                <li><a href="faq.html">FAQ</a></li>
+              </ul>
+            </nav>
+          </div>
+        </header>
+
+    <div class="max-w-6xl mx-auto">
+            <h2 class="text-4xl font-bold mb-16 text-center tracking-tight">Mission Trajectory</h2>
+            <div class="grid md:grid-cols-2 gap-8">
+                <div class="glass-panel p-8 rounded-2xl glow-hover transition-all" data-aos="fade-right">
+                    <div class="flex justify-between items-center mb-6">
+                        <h3 class="text-xl font-bold text-blue-400 uppercase tracking-wider">Refueling (Cheap Lunch)</h3>
+                        <span class="text-xs bg-blue-900/50 px-3 py-1 rounded-full border border-blue-500/30">Daily 11am-1pm</span>
+                    </div>
+                    <div class="space-y-4 opacity-60 italic">
+                        <p>Menu details coming soon from mission control...</p>
+                        <div class="h-2 w-full bg-white/5 rounded"></div>
+                        <div class="h-2 w-3/4 bg-white/5 rounded"></div>
+                    </div>
+                </div>
+
+                <div class="glass-panel p-8 rounded-2xl glow-hover transition-all" data-aos="fade-left">
+                    <h3 class="text-xl font-bold text-purple-400 uppercase tracking-wider mb-6">Extravehicular Activities (Event Schedule)</h3>
+                    <div class="space-y-4 opacity-60 italic">
+                        <p>Event schedule currently in progress...</p>
+                        <div class="h-2 w-full bg-white/5 rounded"></div>
+                        <div class="h-2 w-1/2 bg-white/5 rounded"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+</body>
+</html>

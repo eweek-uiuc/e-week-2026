@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Refueling Schedule | E-Week 2026</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;500;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background-color: #05070a;
+            color: #e2e8f0;
+            font-family: 'Space Grotesk', sans-serif;
+            background-image: 
+                radial-gradient(white, rgba(255,255,255,.2) 2px, transparent 40px),
+                radial-gradient(white, rgba(255,255,255,.15) 1px, transparent 30px);
+            background-size: 550px 550px, 350px 350px;
+            background-position: 0 0, 40px 60px;
+        }
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .glow-hover:hover {
+            box-shadow: 0 0 20px rgba(59, 130, 246, 0.3);
+            border-color: #3b82f6;
+            transform: translateY(-2px);
+        }
+        /* Bento Grid Specifics */
+        .bento-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            grid-auto-rows: minmax(180px, auto);
+            gap: 1.5rem;
+        }
+        /* Make some boxes larger for the "Bento" look */
+        .col-span-2 { grid-column: span 2 / span 2; }
+        .row-span-2 { grid-row: span 2 / span 2; }
+
+        @media (max-width: 768px) {
+            .bento-grid {
+                grid-template-columns: 1fr;
+            }
+            .col-span-2, .row-span-2 { grid-column: span 1; grid-row: span 1; }
+        }
+    </style>
+</head>
+<body class="p-4 md:p-12">
+
+    <header class="mb-12">
+        <nav class="glass-panel rounded-full px-8 py-4">
+            <ul class="flex flex-wrap justify-center md:justify-end space-x-6 text-sm uppercase tracking-widest">
+                <li><a href="index.html" class="hover:text-blue-400 transition">Home</a></li>
+                <li><a href="staff.html" class="hover:text-blue-400 transition">Staff</a></li>
+                <li><a href="cheap_lunch.html" class="text-blue-400">Cheap Lunch</a></li>
+                <li><a href="schedule.html" class="hover:text-blue-400 transition">Schedule</a></li>
+                <li><a href="leaderboard.html" class="hover:text-blue-400 transition">Leaderboard</a></li>
+                <li><a href="faq.html" class="hover:text-blue-400 transition">FAQ</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="max-w-6xl mx-auto">
+        <header class="text-center mb-16">
+            <h1 class="text-5xl font-bold tracking-tighter mb-4 uppercase">Refueling Stations</h1>
+            <p class="text-blue-400 tracking-[0.3em] uppercase text-sm font-light">Daily Cheap Lunch Protocol</p>
+        </header>
+
+        <div class="bento-grid">
+            
+            <div class="glass-panel p-8 rounded-3xl glow-hover transition-all col-span-2 row-span-1">
+                <div class="flex justify-between items-start mb-4">
+                    <div>
+                        <span class="text-blue-500 text-xs font-bold tracking-widest uppercase">Sol 01</span>
+                        <h2 class="text-3xl font-bold">Monday</h2>
+                    </div>
+                    <p class="text-2xl font-mono text-blue-400">$5.00</p>
+                </div>
+                <h3 class="text-xl mb-4 text-white/90">Portillo's</h3>
+                <ul class="text-slate-400 space-y-2">
+                    <li class="flex justify-between"><span>Chicago Hot Dog</span> <span>$5.00</span></li>
+                    <li class="flex justify-between"><span>Italian Sausage Sandwich</span> <span>$5.00</span></li>
+                    <li class="flex justify-between"><span>Plant-based Garden Dog</span> <span>$5.00</span></li>
+                </ul>
+            </div>
+
+            <div class="glass-panel p-8 rounded-3xl glow-hover transition-all col-span-2 md:col-span-1">
+                <span class="text-purple-500 text-xs font-bold tracking-widest uppercase">Sol 02</span>
+                <h2 class="text-2xl font-bold mb-2">Tuesday</h2>
+                <h3 class="text-lg text-blue-300 mb-4">D.P. Dough</h3>
+                <p class="text-sm text-slate-400">Italian</p>
+                <p class="text-xl font-mono mt-4 text-white">$4.00</p>
+            </div>
+
+            <div class="glass-panel p-8 rounded-3xl glow-hover transition-all row-span-2">
+                <span class="text-blue-500 text-xs font-bold tracking-widest uppercase">Sol 03</span>
+                <h2 class="text-2xl font-bold mb-2">Wednesday</h2>
+                <h3 class="text-lg text-blue-300 mb-6">Potbelly Sandwiches</h3>
+                <div class="space-y-6">
+                    <div>
+                        <p class="text-sm font-bold uppercase text-slate-500">Italian</p>
+                        <p class="text-lg font-mono">$6.50</p>
+                    </div>
+                    <div>
+                        <p class="text-sm font-bold uppercase text-slate-500">Mediterranean</p>
+                        <p class="text-lg font-mono">$6.50</p>
+                    </div>
+                    <div>
+                        <p class="text-sm font-bold uppercase text-slate-500">Turkey Breast & Swiss</p>
+                        <p class="text-lg font-mono">$6.50</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="glass-panel p-8 rounded-3xl glow-hover transition-all col-span-2 md:col-span-1">
+                <span class="text-purple-500 text-xs font-bold tracking-widest uppercase">Sol 04</span>
+                <h2 class="text-2xl font-bold mb-2">Thursday</h2>
+                <h3 class="text-lg text-blue-300">Juanito's</h3>
+                <p class="text-sm text-slate-400 mt-2">Original Sandwich</p>
+                <p class="text-xl font-mono mt-4 text-white">$6.00</p>
+            </div>
+
+            <div class="glass-panel p-8 rounded-3xl glow-hover transition-all col-span-2">
+                <div class="flex justify-between items-center">
+                    <div>
+                        <span class="text-blue-500 text-xs font-bold tracking-widest uppercase">Sol 05</span>
+                        <h2 class="text-3xl font-bold">Friday</h2>
+                        <h3 class="text-lg text-blue-300 mt-1">Domino's</h3>
+                    </div>
+                    <div class="text-right">
+                        <p class="text-sm text-slate-500 uppercase">Mission Finale</p>
+                        <p class="text-3xl font-mono text-blue-400">$5.00</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <footer class="mt-20 pb-12 text-center text-slate-600 text-xs tracking-widest uppercase">
+        Launch Window: 11:00 - 13:00 Daily | Location: Engineering Hall
+    </footer>
+
+</body>
+</html>
