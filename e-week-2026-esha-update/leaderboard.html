@@ -2,67 +2,100 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <link
-      href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css"
-      rel="stylesheet"
-    />
-    <link rel="stylesheet" href="styles.css">
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>2026 Engineering Week UIUC</title>
-    <style>
-        body {
-            background-color: #05070a;
-            color: #e2e8f0;
-            font-family: 'Space Grotesk', sans-serif;
-            /* Simple CSS Stars */
-            background-image: 
-                radial-gradient(white, rgba(255,255,255,.2) 2px, transparent 40px),
-                radial-gradient(white, rgba(255,255,255,.15) 1px, transparent 30px);
-            background-size: 550px 550px, 350px 350px;
-            background-position: 0 0, 40px 60px;
-        }
-        .glass-panel {
-            background: rgba(255, 255, 255, 0.03);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-        .glow-hover:hover {
-            box-shadow: 0 0 20px rgba(59, 130, 246, 0.5);
-            border-color: #3b82f6;
-        }
-    </style>
-  </head>
+    <title>Squadron Leaderboard | E-Week 2026</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="bg-gray-50 text-gray-900">
+    <div class="blueprint-bg"></div>
 
-    <body class="bg-gray-50 text-gray-900">
-        <!-- navbar -->
-       <header class="navbar-bg text-white">
-          <div class="container mx-auto flex items-center p-4">
-            <nav class="w-full">
-              <ul class="flex justify-end space-x-6">
-                <li><a href="index.html">Home</a></li>
-                <li><a href="staff.html">Staff</a></li>
-                <li><a href="cheap_lunch.html">Cheap Lunch</a></li>
-                <li><a href="schedule.html">Schedule</a></li>
-                <li><a href="leaderboard.html">Leaderboard</a></li>
-                <li><a href="sign_up_link.html">Sign Up</a></li>
-                <li><a href="faq.html">FAQ</a></li>
-              </ul>
+    <header class="navbar-bg fixed w-full top-0 z-50">
+        <div class="container mx-auto flex items-center justify-between p-4 px-6">
+            <span class="font-bold tracking-tighter text-blue-600 uppercase">Mission // E-Week 2026</span>
+            <nav>
+                <ul class="flex space-x-6">
+                    <li><a href="index.html" class="nav-link">Home</a></li>
+                    <li><a href="staff.html" class="nav-link">Staff</a></li>
+                    <li><a href="cheap_lunch.html" class="nav-link">Cheap Lunch</a></li>
+                    <li><a href="schedule.html" class="nav-link">Schedule</a></li>
+                    <li><a href="leaderboard.html" class="nav-link text-blue-600 active">Leaderboard</a></li>
+                    <li><a href="sign_up_link.html" class="nav-link">Sign Up</a></li>
+                    <li><a href="faq.html" class="nav-link">FAQ</a></li>
+                </ul>
             </nav>
-          </div>
-        </header>
-    <div class="max-w-4xl mx-auto">
-        <h1 class="text-4xl font-bold text-center mb-8 text-blue-400 tracking-widest uppercase">Squadron Standings</h1>
-        
-        <div class="glass-panel p-4 rounded-2xl bg-white/5 border border-white/10 overflow-hidden shadow-2xl shadow-blue-900/20">
-            <iframe 
-                src="https://docs.google.com/spreadsheets/d/e/2PACX-1vTD5iQo4tI0_-RxQzIGmmTcf-FrXBvkcXEDSIzW4TAzWhsAH1kcrPJX7tt_lkmwF2ADqx8vqfarTmwM/pubhtml?gid=0&amp;single=true&amp;widget=true&amp;headers=false"></iframe>
-            </iframe>
         </div>
-        
-        <p class="text-center mt-6 text-slate-500 text-sm italic underline">
-            *Updates automatically every 5 minutes
-        </p>
-    </div>
+    </header>
+
+    <main class="relative pt-32 px-6">
+        <div class="max-w-4xl mx-auto relative pb-20">
+            <div class="decal decal-tl"></div>
+            <h1 class="text-5xl font-extrabold text-center mb-12 uppercase italic">Squadron <span class="text-blue-600">Standings</span></h1>
+            
+            <div class="bg-white border border-gray-200 rounded-lg shadow-sm overflow-hidden">
+                <div class="bg-gray-50 p-4 border-b border-gray-200 flex justify-between items-center">
+                    <span class="text-xs font-bold text-gray-400 uppercase tracking-widest">Live Telemetry Data</span>
+                    <span id="status-light" class="flex items-center text-[10px] text-green-600 font-bold uppercase">
+                        <span class="w-2 h-2 bg-green-500 rounded-full mr-2 animate-pulse"></span> Uplink Active
+                    </span>
+                </div>
+                <table class="w-full text-left">
+                    <thead class="text-xs text-gray-400 uppercase">
+                        <tr>
+                            <th class="p-6">Rank</th>
+                            <th class="p-6">Society</th>
+                            <th class="p-6 text-right">Points</th>
+                        </tr>
+                    </thead>
+                    <tbody id="leaderboard-body" class="divide-y divide-gray-100 font-bold">
+                        <tr>
+                            <td colspan="3" class="p-10 text-center text-gray-400 italic">Initiating Data Transfer...</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="decal decal-br"></div>
+        </div>
+    </main>
+
+    <script>
+        // REPLACE THIS URL with your "Published to Web" CSV link
+        const sheetUrl = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTD5iQo4tI0_-RxQzIGmmTcf-FrXBvkcXEDSIzW4TAzWhsAH1kcrPJX7tt_lkmwF2ADqx8vqfarTmwM/pub?gid=0&single=true&output=csv";
+
+        async function fetchLeaderboard() {
+            try {
+                const response = await fetch(sheetUrl);
+                const data = await response.text();
+                
+                // Parse CSV into rows
+                const rows = data.split('\n').slice(1); // Skip the header row
+                const tbody = document.getElementById('leaderboard-body');
+                
+                let html = "";
+                rows.forEach(row => {
+                    const columns = row.split(',');
+                    if (columns.length >= 3) {
+                        html += `
+                            <tr class="hover:bg-blue-50/50 transition duration-300">
+                                <td class="p-6 text-blue-600 font-mono tracking-tighter">${columns[0]}</td>
+                                <td class="p-6 uppercase">${columns[1]}</td>
+                                <td class="p-6 text-right font-mono text-xl text-gray-900">${columns[2]}</td>
+                            </tr>
+                        `;
+                    }
+                });
+                
+                tbody.innerHTML = html;
+            } catch (error) {
+                console.error("Error fetching data:", error);
+                document.getElementById('status-light').innerHTML = '<span class="text-red-500">Uplink Failed</span>';
+            }
+        }
+
+        // Run on load
+        fetchLeaderboard();
+        // Refresh every 60 seconds
+        setInterval(fetchLeaderboard, 60000);
+    </script>
 </body>
 </html>

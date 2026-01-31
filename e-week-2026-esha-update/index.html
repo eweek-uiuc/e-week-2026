@@ -3,55 +3,103 @@
   <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <link
-      href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css"
-      rel="stylesheet"
-    />
+    <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="styles.css">
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>2026 Engineering Week UIUC</title>
-    
+    <style>
+        /* Keeping your original light theme but adding 'Space Tech' accents */
+        body {
+            background-color: #f9fafb; /* Original bg-gray-50 */
+            color: #111827;
+            overflow-x: hidden;
+        }
+
+        /* Subtle 'Grid' background to look like a blueprint/star map */
+        .blueprint-bg {
+            background-image: linear-gradient(#e5e7eb 1px, transparent 1px), linear-gradient(90deg, #e5e7eb 1px, transparent 1px);
+            background-size: 50px 50px;
+            position: fixed;
+            inset: 0;
+            z-index: -1;
+            opacity: 0.3;
+        }
+
+        /* Corner decals to look like a flight computer screen */
+        .decal {
+            position: absolute;
+            width: 40px;
+            height: 40px;
+            border-color: #3b82f6; /* UIUC/Space Blue */
+            opacity: 0.6;
+        }
+        .decal-tl { top: 20px; left: 20px; border-top: 4px solid; border-left: 4px solid; }
+        .decal-br { bottom: 20px; right: 20px; border-bottom: 4px solid; border-right: 4px solid; }
+
+        .navbar-bg {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(8px);
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        /* Smooth hover for your links */
+        .nav-link {
+            position: relative;
+            transition: color 0.3s;
+        }
+        .nav-link:hover { color: #2563eb; }
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -4px;
+            left: 0;
+            background-color: #2563eb;
+            transition: width 0.3s;
+        }
+        .nav-link:hover::after { width: 100%; }
+    </style>
   </head>
 
     <body class="bg-gray-50 text-gray-900">
-        <!-- navbar -->
-       <header class="navbar-bg text-white">
-          <div class="container mx-auto flex items-center p-4">
-            <nav class="w-full">
-              <ul class="flex justify-end space-x-6">
-                <li><a href="index.html">Home</a></li>
-                <li><a href="staff.html">Staff</a></li>
-                <li><a href="cheap_lunch.html">Cheap Lunch</a></li>
-                <li><a href="schedule.html">Schedule</a></li>
-                <li><a href="leaderboard.html">Leaderboard</a></li>
-                <li><a href="sign_up_link.html">Sign Up</a></li>
-                <li><a href="faq.html">FAQ</a></li>
+        <div class="blueprint-bg"></div>
+
+        <header class="navbar-bg fixed w-full top-0 z-50">
+          <div class="container mx-auto flex items-center justify-between p-4">
+            <span class="font-bold tracking-tighter text-blue-600">MISSION // E-WEEK 2026</span>
+            <nav>
+              <ul class="flex space-x-6 font-medium text-sm text-gray-600">
+                <li><a href="index.html" class="nav-link text-blue-600">Home</a></li>
+                <li><a href="staff.html" class="nav-link">Staff</a></li>
+                <li><a href="cheap_lunch.html" class="nav-link">Cheap Lunch</a></li>
+                <li><a href="schedule.html" class="nav-link">Schedule</a></li>
+                <li><a href="leaderboard.html" class="nav-link">Leaderboard</a></li>
+                <li><a href="sign_up_link.html" class="nav-link">Sign Up</a></li>
+                <li><a href="faq.html" class="nav-link">FAQ</a></li>
               </ul>
             </nav>
           </div>
         </header>
 
+        <main class="relative pt-32">
+            <div class="max-w-6xl mx-auto relative px-6">
+                <div class="decal decal-tl"></div>
+                
+                <h1 class="text-5xl md:text-6xl font-extrabold text-center tracking-tight">
+                    National Engineering Week <span class="text-blue-600">2026</span>
+                </h1>
 
-         <h1 class="mt-20 text-5xl font-bold text-center">
-            <strong>National Engineering Week 2026</strong>
-        </h1>
+                <section id="about" class="py-16">
+                    <div class="bg-white border border-gray-200 rounded-lg p-8 md:p-12 shadow-sm relative overflow-hidden">
+                        <div class="absolute top-0 left-0 w-full h-1 bg-blue-500/20 animate-[pulse_2s_infinite]"></div>
+                        
+                        <div class="flex items-center space-x-2 mb-6">
+                            <span class="h-2 w-2 bg-blue-600 rounded-full animate-ping"></span>
+                            <h2 class="text-2xl font-bold uppercase tracking-widest text-gray-400 text-sm">Status: Active // About</h2>
+                        </div>
 
+                        <p class="text-lg leading-relaxed text-gray-700">
+                            E-Week is a week-long celebration highlighting the contributions to society that engineers make. Started in 1951 by the National Society of Professional Engineers, this particular week in February is observed by a plethora of professional and academic societies as well as corporations and government agencies.
 
-        <section id="about" class="container mx-auto py-16 px-6">
-            <h2 class="text-3xl font-bold mb-4">About</h2>
-            <p class="text-lg">
-                <br />
-                <br />
-                E-Week is a week-long celebration highlighting the contributions to
-                society that engineers make. Started in 1951 by the National Society
-                of Professional Engineers, this particular week in February is
-                observed by a plethora of professional and academic societies as well
-                as corporations and government agencies. For students here at
-                Illinois, there are community and competitive events, guest speakers,
-                and food. Register an account for a 5 or 10 man team to participate in
-                the festivities and competitions. Awards, prizes, and bragging rights
-                await!
-            </p>
-        </section>
-    </body>
-</html>
+For students here at Illinois, there are community and competitive events, guest speakers, and food. Register an account for a 5 or 10 man team to participate in the festivities and competitions. Awards, prizes, and bragging rights await!
