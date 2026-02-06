@@ -1,0 +1,124 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Squadron Leaderboard | E-Week 2026</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="bg-gray-50 text-gray-900 font-['Audiowide']">
+    <div class="blueprint-bg"></div>
+
+    <header class="navbar-bg text-white">
+          <div class="container mx-auto flex items-center p-4">
+            <nav class="w-full">
+              <ul class="flex justify-end space-x-6">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="staff.html">Staff</a></li>
+                <li><a href="cheap_lunch.html">Cheap Lunch</a></li>
+                <li><a href="schedule.html">Schedule</a></li>
+                <li><a href="leaderboard.html">Leaderboard</a></li>
+                <li><a href="sign_up_link.html">Sign Up</a></li>
+                <li><a href="faq.html">FAQ</a></li>
+              </ul>
+            </nav>
+          </div>
+    </header>
+
+    <main class="relative pt-32 px-6">
+        <div class="max-w-4xl mx-auto relative pb-20">
+            <div class="decal decal-tl"></div>
+            
+            <h1 class="text-5xl font-extrabold text-center mb-12 uppercase italic">
+                Squadron <span class="text-blue-600">Standings</span>
+            </h1>
+            
+            <div class="bg-white border border-gray-200 rounded-lg shadow-sm overflow-hidden">
+                <div class="bg-gray-50 p-4 border-b border-gray-200 flex flex-col md:flex-row justify-between items-center gap-2">
+                    <div class="flex items-center">
+                        <span class="text-xs font-bold text-gray-400 uppercase tracking-widest">Live Telemetry Data</span>
+                        <span id="status-light" class="ml-4 flex items-center text-[10px] text-green-600 font-bold uppercase">
+                            <span class="w-2 h-2 bg-green-500 rounded-full mr-2 animate-pulse"></span> Uplink Active
+                        </span>
+                    </div>
+                    <div class="text-[10px] text-gray-400 font-mono uppercase tracking-tighter">
+                        Last Sync: <span id="last-updated">In Transit...</span>
+                    </div>
+                </div>
+
+                <table class="w-full text-left">
+                    <thead class="text-xs text-gray-400 uppercase border-b border-gray-100">
+                        <tr>
+                            <th class="p-6">Rank</th>
+                            <th class="p-6">Team</th>
+                            <th class="p-6 text-right">Points</th>
+                        </tr>
+                    </thead>
+                    <tbody id="leaderboard-body" class="divide-y divide-gray-100 font-bold">
+                        <tr>
+                            <td colspan="3" class="p-20 text-center text-gray-400 italic">
+                                <div class="flex flex-col items-center gap-4">
+                                    <span class="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></span>
+                                    Initiating Data Transfer...
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="decal decal-br"></div>
+            
+            <p class="mt-8 text-center text-gray-400 text-[10px] uppercase tracking-[0.2em]">
+                Note: Standings are synchronized every 60 seconds with Mission Control
+            </p>
+        </div>
+    </main>
+
+    <script>
+    const targetUrl = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTD5iQo4tI0_-RxQzIGmmTcf-FrXBvkcXEDSIzW4TAzWhsAH1kcrPJX7tt_lkmwF2ADqx8vqfarTmwM/pub?gid=0&single=true&output=csv";
+    const proxyUrl = "https://corsproxy.io/?";
+
+    async function fetchLeaderboard() {
+        try {
+            // Fetching via proxy to bypass CORS
+            const response = await fetch(proxyUrl + encodeURIComponent(targetUrl));
+            if (!response.ok) throw new Error("Signal Blocked");
+            
+            const data = await response.text();
+            const rows = data.split('\n').filter(row => row.trim() !== "").slice(1); 
+            const tbody = document.getElementById('leaderboard-body');
+            const lastUpdatedSpan = document.getElementById('last-updated');
+            
+            let html = "";
+            rows.forEach(row => {
+                const columns = row.split(',');
+                if (columns.length >= 3) {
+                    html += `
+                        <tr class="hover:bg-blue-50/50 transition duration-300">
+                            <td class="p-6 text-blue-600 font-mono tracking-tighter">${columns[0]}</td>
+                            <td class="p-6 uppercase">${columns[1]}</td>
+                            <td class="p-6 text-right font-mono text-xl text-gray-900">${columns[2]}</td>
+                        </tr>
+                    `;
+                }
+            });
+            
+            tbody.innerHTML = html;
+            const now = new Date();
+            lastUpdatedSpan.innerText = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+            document.getElementById('status-light').innerHTML = '<span class="w-2 h-2 bg-green-500 rounded-full mr-2 animate-pulse"></span> Uplink Active';
+
+        } catch (error) {
+            console.error("CORS Bypass Failed:", error);
+            document.getElementById('status-light').innerHTML = '<span class="text-red-500 font-bold">🛰️ Uplink Failure</span>';
+        }
+    }
+
+    fetchLeaderboard();
+    setInterval(fetchLeaderboard, 60000);
+</script>
+</body>
+</html>
