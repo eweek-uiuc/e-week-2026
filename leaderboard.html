@@ -79,25 +79,31 @@
 
     <script>
     const targetUrl = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTD5iQo4tI0_-RxQzIGmmTcf-FrXBvkcXEDSIzW4TAzWhsAH1kcrPJX7tt_lkmwF2ADqx8vqfarTmwM/pub?gid=0&single=true&output=csv";
-    const proxyUrl = "https://corsproxy.io/?";
 
     async function fetchLeaderboard() {
+        const tbody = document.getElementById('leaderboard-body');
+        const statusLight = document.getElementById('status-light');
+        const lastUpdatedSpan = document.getElementById('last-updated');
+
         try {
-            // Fetching via proxy to bypass CORS
-            const response = await fetch(proxyUrl + encodeURIComponent(targetUrl));
-            if (!response.ok) throw new Error("Signal Blocked");
+            // Fetch directly from Google
+            const response = await fetch(targetUrl);
+            
+            if (!response.ok) throw new Error("Connection failed");
             
             const data = await response.text();
-            const rows = data.split('\n').filter(row => row.trim() !== "").slice(1); 
-            const tbody = document.getElementById('leaderboard-body');
-            const lastUpdatedSpan = document.getElementById('last-updated');
+            
+            // Split by newline and remove empty lines. 
+            // .slice(1) removes the header row (Rank, Team, Points).
+            const rows = data.split(/\r?\n/).filter(row => row.trim() !== "").slice(1); 
             
             let html = "";
             rows.forEach(row => {
                 const columns = row.split(',');
+                
                 if (columns.length >= 3) {
                     html += `
-                        <tr class="hover:bg-blue-50/50 transition duration-300">
+                        <tr class="hover:bg-blue-50/50 transition duration-300 border-b border-gray-100">
                             <td class="p-6 text-blue-600 font-mono tracking-tighter">${columns[0]}</td>
                             <td class="p-6 uppercase">${columns[1]}</td>
                             <td class="p-6 text-right font-mono text-xl text-gray-900">${columns[2]}</td>
@@ -105,19 +111,27 @@
                     `;
                 }
             });
-            
             tbody.innerHTML = html;
+            
             const now = new Date();
             lastUpdatedSpan.innerText = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' });
-            document.getElementById('status-light').innerHTML = '<span class="w-2 h-2 bg-green-500 rounded-full mr-2 animate-pulse"></span> Uplink Active';
+            
+            statusLight.innerHTML = '<span class="w-2 h-2 bg-green-500 rounded-full mr-2 animate-pulse"></span> Uplink Active';
 
         } catch (error) {
-            console.error("CORS Bypass Failed:", error);
-            document.getElementById('status-light').innerHTML = '<span class="text-red-500 font-bold">🛰️ Uplink Failure</span>';
+            console.error("Leaderboard Error:", error);
+            statusLight.innerHTML = '<span class="text-red-500 font-bold uppercase text-[10px]">🛰️ Uplink Failure</span>';
+            
+            if (tbody.innerHTML.includes("Initiating Data Transfer")) {
+                tbody.innerHTML = `<tr><td colspan="3" class="p-10 text-center text-gray-400 italic">Temporary connection interference. Retrying...</td></tr>`;
+            }
         }
     }
 
+    // Run immediately on load
     fetchLeaderboard();
+
+    // Refresh data every 60 seconds
     setInterval(fetchLeaderboard, 60000);
 </script>
 </body>
