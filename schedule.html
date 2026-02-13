@@ -1,0 +1,264 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Mission Trajectory | E-Week 2026</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .tabs {
+            position: relative;
+        }
+        .tabs input {
+            display: none;
+        }
+        .tabs {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 8px;
+            margin-bottom: 20px;
+        }
+        .tabs label {
+            display: inline-block;
+            padding: 12px 24px;
+            background: linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 100%);
+            border: 2px solid #cbd5e1;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: #374151;
+            border-radius: 16px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+        .tabs label:hover {
+            background: linear-gradient(135deg, #e0f2fe 0%, #bae6fd 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+        }
+        .tabs input:checked + label {
+            background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+            color: white;
+            border-color: #1d4ed8;
+            box-shadow: 0 6px 12px rgba(59, 130, 246, 0.3);
+        }
+        .tab-content {
+            display: none;
+            padding: 20px;
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-top: none;
+        }
+        input:checked ~ .tab-content {
+            display: block;
+        }
+    </style>
+<header class="navbar-bg text-white">
+          <div class="container mx-auto flex items-center p-4">
+            <nav class="w-full">
+              <ul class="flex justify-end space-x-6">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="staff.html">Staff</a></li>
+                <li><a href="cheap_lunch.html">Cheap Lunch</a></li>
+                <li><a href="schedule.html">Schedule</a></li>
+                <li><a href="leaderboard.html">Leaderboard</a></li>
+                <li><a href="sign_up_link.html">Sign Up</a></li>
+                <li><a href="faq.html">FAQ</a></li>
+              </ul>
+            </nav>
+          </div>
+        </header>
+
+<div class="blueprint-bg"></div>
+
+    <main class="relative pt-32 px-6">
+        <div class="max-w-4xl mx-auto relative pb-20">
+            <div class="decal decal-tl"></div>
+            
+            <h1 class="text-5xl font-extrabold text-center mb-8 uppercase italic">Mission <span class="text-blue-600">Trajectory</span></h1>
+            
+            <div class="text-center mb-10">
+                <a href="https://docs.google.com/document/d/1aqARJ10J_WjEED3U0xixxzAFaZ6BvFKuUCmkqVz0y3Q/edit?tab=t.0" target="_blank" class="bg-blue-600 text-white px-8 py-3 rounded-full font-bold uppercase text-xs tracking-widest shadow-lg hover:bg-blue-700 transition">
+                    Access Event Rules Packet (Google Doc)
+                </a>
+            </div>
+
+            <div class="text-center mb-10">
+                <a href="https://docs.google.com/document/d/1wwWDhhESDb4CrOmETNaJoGF3x9y7Fc6ifB-D8xgvMhY/edit?usp=sharing" target="_blank" class="bg-blue-600 text-white px-8 py-3 rounded-full font-bold uppercase text-xs tracking-widest shadow-lg hover:bg-blue-700 transition">
+                    Captain's Packet (Google Doc)
+                </a>
+            </div>
+
+            <div class="tabs">
+                <div class="tab">
+                    <input id="tab1" type="radio" name="tabs" checked>
+                    <label for="tab1">SOL 01 // Sunday 2/22</label>
+                    <div class="tab-content">
+                        <h3 class="text-lg font-bold mb-4 text-blue-600">SOL 01 // Sunday 2/22</h3>
+                        <table class="w-full text-left">
+                            <thead class="bg-gray-50 border-b border-gray-200 text-xs uppercase text-gray-500">
+                                <tr>
+                                    <th class="p-4">Time</th>
+                                    <th class="p-4">Objective</th>
+                                    <th class="p-4">Location</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-gray-100 font-medium">
+                                <tr><td class="p-4 text-blue-600">10:00 - 10:30</td><td class="p-4">Mile</td><td class="p-4 italic text-gray-500">TBD</td></tr>
+                                <tr><td class="p-4 text-blue-600">10:30 - 11:30</td><td class="p-4">Obstacle Course</td><td class="p-4 italic text-gray-500">TBD</td></tr>
+                                <tr><td class="p-4 text-blue-600">11:45 - 12:30</td><td class="p-4">Tug of War</td><td class="p-4 italic text-gray-500">TBD</td></tr>
+                                <tr><td class="p-4 text-blue-600">13:00 - 14:00</td><td class="p-4">Boomcup</td><td class="p-4 italic text-gray-500">TBD</td></tr>
+                                <tr><td class="p-4 text-blue-600">14:00 - 16:00</td><td class="p-4">Dean's Brunch</td><td class="p-4 italic text-gray-500">TBD</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                
+                <div class="tab">
+                    <input id="tab2" type="radio" name="tabs">
+                    <label for="tab2">SOL 02 // Monday 2/23</label>
+                    <div class="tab-content">
+                        <h3 class="text-lg font-bold mb-4 text-blue-600">SOL 02 // Monday 2/23</h3>
+                        <table class="w-full text-left">
+                            <thead class="bg-gray-50 border-b border-gray-200 text-xs uppercase text-gray-500">
+                                <tr>
+                                    <th class="p-4">Time</th>
+                                    <th class="p-4">Objective</th>
+                                    <th class="p-4">Location</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-gray-100 font-medium">
+                                <tr><td class="p-4 text-blue-600">10:30 - 14:00</td><td class="p-4">Cheap Lunch</td><td class="p-4 italic text-gray-500">TBD</td></tr>
+                                <tr><td class="p-4 text-blue-600">17:00 - 18:00</td><td class="p-4">Poop the Potato</td><td class="p-4 italic text-gray-500">TBD</td></tr>
+                                <tr><td class="p-4 text-blue-600">18:30 - 19:30</td><td class="p-4">Eating Contest</td><td class="p-4 italic text-gray-500">TBD</td></tr>
+                                <tr><td class="p-4 text-blue-600">20:00 - 22:00</td><td class="p-4">Amazing Race</td><td class="p-4 italic text-gray-500">TBD</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                
+                <div class="tab">
+                    <input id="tab3" type="radio" name="tabs">
+                    <label for="tab3">SOL 03 // Tuesday 2/24</label>
+                    <div class="tab-content">
+                        <h3 class="text-lg font-bold mb-4 text-blue-600">SOL 03 // Tuesday 2/24</h3>
+                        <table class="w-full text-left">
+                            <thead class="bg-gray-50 border-b border-gray-200 text-xs uppercase text-gray-500">
+                                <tr>
+                                    <th class="p-4">Time</th>
+                                    <th class="p-4">Objective</th>
+                                    <th class="p-4">Location</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-gray-100 font-medium">
+                                <tr><td class="p-4 text-blue-600">10:30 - 14:00</td><td class="p-4">Cheap Lunch</td><td class="p-4 italic text-gray-500">TBD</td></tr>
+                                <tr><td class="p-4 text-blue-600">16:00 - 17:00</td><td class="p-4">Water Pong</td><td class="p-4 italic text-gray-500">TBD</td></tr>
+                                <tr><td class="p-4 text-blue-600">17:00 - 18:00</td><td class="p-4">Bags</td><td class="p-4 italic text-gray-500">TBD</td></tr>
+                                <tr><td class="p-4 text-blue-600">18:00 - 19:00</td><td class="p-4">Save the Astronaut</td><td class="p-4 italic text-gray-500">TBD</td></tr>
+                                <tr><td class="p-4 text-blue-600">21:00 - 23:00</td><td class="p-4">Hide N' Seek</td><td class="p-4 italic text-gray-500">TBD</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                
+                <div class="tab">
+                    <input id="tab4" type="radio" name="tabs">
+                    <label for="tab4">SOL 04 // Wednesday 2/25</label>
+                    <div class="tab-content">
+                        <h3 class="text-lg font-bold mb-4 text-blue-600">SOL 04 // Wednesday 2/25</h3>
+                        <table class="w-full text-left">
+                            <thead class="bg-gray-50 border-b border-gray-200 text-xs uppercase text-gray-500">
+                                <tr>
+                                    <th class="p-4">Time</th>
+                                    <th class="p-4">Objective</th>
+                                    <th class="p-4">Location</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-gray-100 font-medium">
+                                <tr><td class="p-4 text-blue-600">10:30 - 13:30</td><td class="p-4">Cheap Lunch</td><td class="p-4 italic text-gray-500">TBD</td></tr>
+                                <tr><td class="p-4 text-blue-600">17:00 - 18:00</td><td class="p-4">Human Knot</td><td class="p-4 italic text-gray-500">TBD</td></tr>
+                                <tr><td class="p-4 text-blue-600">18:30 - 19:30</td><td class="p-4">Build a Spaceship</td><td class="p-4 italic text-gray-500">TBD</td></tr>
+                                <tr><td class="p-4 text-blue-600">21:00 - 24:00</td><td class="p-4">Tour of Establishments</td><td class="p-4 italic text-gray-500">TBD</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                
+                <div class="tab">
+                    <input id="tab5" type="radio" name="tabs">
+                    <label for="tab5">SOL 05 // Thursday 2/26</label>
+                    <div class="tab-content">
+                        <h3 class="text-lg font-bold mb-4 text-blue-600">SOL 05 // Thursday 2/26</h3>
+                        <table class="w-full text-left">
+                            <thead class="bg-gray-50 border-b border-gray-200 text-xs uppercase text-gray-500">
+                                <tr>
+                                    <th class="p-4">Time</th>
+                                    <th class="p-4">Objective</th>
+                                    <th class="p-4">Location</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-gray-100 font-medium">
+                                <tr><td class="p-4 text-blue-600">10:30 - 14:00</td><td class="p-4">Cheap Lunch</td><td class="p-4 italic text-gray-500">TBD</td></tr>
+                                <tr><td class="p-4 text-blue-600">17:00 - 18:00</td><td class="p-4">3 Leg Race</td><td class="p-4 italic text-gray-500">TBD</td></tr>
+                                <tr><td class="p-4 text-blue-600">18:00 - 19:00</td><td class="p-4">Secret Event</td><td class="p-4 italic text-gray-500">TBD</td></tr>
+                                <tr><td class="p-4 text-blue-600">21:30 - 23:30</td><td class="p-4">Broomball</td><td class="p-4 italic text-gray-500">TBD</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                
+                <div class="tab">
+                    <input id="tab6" type="radio" name="tabs">
+                    <label for="tab6">SOL 06 // Friday 2/27</label>
+                    <div class="tab-content">
+                        <h3 class="text-lg font-bold mb-4 text-blue-600">SOL 06 // Friday 2/27</h3>
+                        <table class="w-full text-left">
+                            <thead class="bg-gray-50 border-b border-gray-200 text-xs uppercase text-gray-500">
+                                <tr>
+                                    <th class="p-4">Time</th>
+                                    <th class="p-4">Objective</th>
+                                    <th class="p-4">Location</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-gray-100 font-medium">
+                                <tr><td class="p-4 text-blue-600">10:30 - 14:00</td><td class="p-4">Cheap Lunch</td><td class="p-4 italic text-gray-500">TBD</td></tr>
+                                <tr><td class="p-4 text-blue-600">17:30 - 19:30</td><td class="p-4">Engineering Relay</td><td class="p-4 italic text-gray-500">TBD</td></tr>
+                                <tr><td class="p-4 text-blue-600">20:00 - 21:30</td><td class="p-4">Murder Mystery</td><td class="p-4 italic text-gray-500">TBD</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                
+                <div class="tab">
+                    <input id="tab7" type="radio" name="tabs">
+                    <label for="tab7">SOL 07 // Saturday 2/28</label>
+                    <div class="tab-content">
+                        <h3 class="text-lg font-bold mb-4 text-blue-600">SOL 07 // Saturday 2/28</h3>
+                        <table class="w-full text-left">
+                            <thead class="bg-gray-50 border-b border-gray-200 text-xs uppercase text-gray-500">
+                                <tr>
+                                    <th class="p-4">Time</th>
+                                    <th class="p-4">Objective</th>
+                                    <th class="p-4">Location</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-gray-100 font-medium">
+                                <tr><td class="p-4 text-blue-600">22:30 - 02:00</td><td class="p-4">Semi-Formal</td><td class="p-4 italic text-gray-500">TBD</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="decal decal-br"></div>
+        </div>
+    </main>
+</body>
+</html>
