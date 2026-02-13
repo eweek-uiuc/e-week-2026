@@ -8,6 +8,67 @@
 html, body {
     font-family: "Audiowide", sans-serif;
     height: 100%;
+    overflow-x: hidden;
+}
+
+@media (max-width: 768px) {
+
+  /* Page padding */
+  body {
+    padding-left: 12px;
+    padding-right: 12px;
+  }
+
+  /* Navbar */
+  nav ul {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 12px;
+  }
+
+  nav li a {
+    font-size: 14px;
+  }
+
+  /* Main title */
+  h1 {
+    font-size: 2rem;
+    line-height: 1.2;
+    text-align: center;
+    padding: 0 10px;
+  }
+
+  /* Section headings */
+  h2 {
+    font-size: 1.6rem;
+    padding: 0 10px;
+  }
+
+  /* Paragraph text */
+  p {
+    font-size: 1rem;
+    line-height: 1.6;
+    padding: 0 10px;
+  }
+
+  .staff-container {
+    display: grid !important;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    justify-items: center;
+  }
+
+  /* 🔥 RESET all manual stagger positioning */
+  .staff-card {
+    grid-column: auto !important;
+    margin-top: 0 !important;
+  }
+
+  .staff-card img {
+    width: 90px;
+    height: 90px;
+  }
+
 }
 
 .navbar {
@@ -35,11 +96,33 @@ body {
 
 .staff-container {
   display: grid;
-  grid-template-columns: repeat(10, 1fr);
-  gap: 50px 40px;
-  max-width: 1200px;
-  margin: 30px auto 60px;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 30px;
+  max-width: 1300px;
+  margin: 60px auto;
+  padding: 0 20px;
   justify-items: center;
+}
+
+/* Tablet */
+@media (max-width: 900px) {
+  .staff-container {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Phone */
+@media (max-width: 500px) {
+  .staff-container {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 500px) {
+  .staff-card img {
+    width: 120px;
+    height: 120px;
+  }
 }
 
 .staff-card {
