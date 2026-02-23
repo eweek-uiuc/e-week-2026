@@ -67,6 +67,7 @@
                                 <tr>
                                     <th class="p-4 w-12 text-center">Rank</th>
                                     <th class="p-4">Team Name</th>
+                                    <th class="p-4 text-blue-400">All Week</th>
                                     <th class="p-4">Sun</th>
                                     <th class="p-4">Mon</th>
                                     <th class="p-4">Tue</th>
@@ -76,8 +77,7 @@
                                     <th class="p-4 text-right text-blue-600">Total</th>
                                 </tr>
                             </thead>
-                            <tbody id="group-5-body" class="divide-y divide-gray-100 font-bold">
-                                </tbody>
+                            <tbody id="group-5-body" class="divide-y divide-gray-100 font-bold"></tbody>
                         </table>
                     </div>
                 </div>
@@ -94,6 +94,7 @@
                                 <tr>
                                     <th class="p-4 w-12 text-center">Rank</th>
                                     <th class="p-4">Team Name</th>
+                                    <th class="p-4 text-blue-400">All Week</th>
                                     <th class="p-4">Sun</th>
                                     <th class="p-4">Mon</th>
                                     <th class="p-4">Tue</th>
@@ -103,8 +104,7 @@
                                     <th class="p-4 text-right text-blue-600">Total</th>
                                 </tr>
                             </thead>
-                            <tbody id="group-10-body" class="divide-y divide-gray-100 font-bold">
-                                </tbody>
+                            <tbody id="group-10-body" class="divide-y divide-gray-100 font-bold"></tbody>
                         </table>
                     </div>
                 </div>
@@ -130,27 +130,25 @@
                 if (!response.ok) throw new Error("Connection failed");
                 
                 const data = await response.text();
-                // Filter empty rows and skip the header
                 const rows = data.split(/\r?\n/).filter(row => row.trim() !== "").slice(1); 
                 
                 let teams5 = [];
                 let teams10 = [];
 
                 rows.forEach(row => {
-                    // This regex handles commas inside quotes (CSV standard)
                     const columns = row.split(/,(?=(?:(?:[^"]*"){2})*[^"]*$)/);
                     
                     if (columns.length >= 11) {
                         const teamObj = {
                             groupSize: columns[0].trim(),
                             teamName: columns[1].replace(/"/g, ""),
+                            allWeek: columns[3] || "0", // Mapping the "All Week" column
                             sun: columns[4] || "0",
                             mon: columns[5] || "0",
                             tue: columns[6] || "0",
                             wed: columns[7] || "0",
                             thu: columns[8] || "0",
                             fri: columns[9] || "0",
-                            // Ensure numeric conversion for accurate sorting
                             total: parseFloat(columns[10]) || 0 
                         };
 
@@ -162,22 +160,20 @@
                     }
                 });
 
-                // --- SORTING ---
                 const sortByTotal = (a, b) => b.total - a.total;
                 teams5.sort(sortByTotal);
                 teams10.sort(sortByTotal);
 
-                // --- RENDER FUNCTION ---
                 const renderRows = (teamList) => {
                     return teamList.map((team, index) => {
                         const rank = index + 1;
-                        // Special styling for Top 3
                         const rankColor = rank === 1 ? 'text-yellow-500' : rank === 2 ? 'text-gray-400' : rank === 3 ? 'text-orange-500' : 'text-gray-300';
                         
                         return `
                             <tr class="hover:bg-blue-50/50 transition duration-300 border-b border-gray-100 text-sm">
                                 <td class="p-4 text-center font-black ${rankColor}">#${rank}</td>
                                 <td class="p-4 uppercase text-gray-900">${team.teamName}</td>
+                                <td class="p-4 font-mono text-blue-500">${team.allWeek}</td>
                                 <td class="p-4 font-mono text-gray-400">${team.sun}</td>
                                 <td class="p-4 font-mono text-gray-400">${team.mon}</td>
                                 <td class="p-4 font-mono text-gray-400">${team.tue}</td>
@@ -190,9 +186,8 @@
                     }).join('');
                 };
 
-                // --- UPDATE DOM ---
-                body5.innerHTML = teams5.length ? renderRows(teams5) : '<tr><td colspan="9" class="p-10 text-center text-gray-400">No Squads Deployed</td></tr>';
-                body10.innerHTML = teams10.length ? renderRows(teams10) : '<tr><td colspan="9" class="p-10 text-center text-gray-400">No Squads Deployed</td></tr>';
+                body5.innerHTML = teams5.length ? renderRows(teams5) : '<tr><td colspan="10" class="p-10 text-center text-gray-400">No Squads Deployed</td></tr>';
+                body10.innerHTML = teams10.length ? renderRows(teams10) : '<tr><td colspan="10" class="p-10 text-center text-gray-400">No Squads Deployed</td></tr>';
                 
                 const now = new Date();
                 lastUpdatedSpan.innerText = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' });
@@ -205,9 +200,7 @@
             }
         }
 
-        // Run on load
         fetchLeaderboard();
-        // Refresh every 60 seconds
         setInterval(fetchLeaderboard, 60000);
     </script>
 </body>
