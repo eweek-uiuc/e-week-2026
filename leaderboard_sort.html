@@ -19,6 +19,11 @@
             background-size: 20px 20px;
         }
         .navbar-bg { background-color: #1a202c; }
+        .glitch { animation: pulse-red 2s infinite; }
+        @keyframes pulse-red {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
     </style>
 </head>
 <body class="bg-gray-50 text-gray-900">
@@ -26,14 +31,10 @@
 
     <header class="navbar-bg text-white shadow-xl">
         <div class="container mx-auto flex items-center p-4">
-            <nav class="w-full">
-                <ul class="flex justify-end space-x-6 text-xs uppercase tracking-widest">
+            <nav class="w-full text-xs uppercase tracking-widest">
+                <ul class="flex justify-end space-x-6">
                     <li><a href="index.html" class="hover:text-blue-400 transition">Home</a></li>
-                    <li><a href="staff.html" class="hover:text-blue-400 transition">Staff</a></li>
-                    <li><a href="cheap_lunch.html" class="hover:text-blue-400 transition">Cheap Lunch</a></li>
-                    <li><a href="schedule.html" class="hover:text-blue-400 transition">Schedule</a></li>
                     <li><a href="leaderboard.html" class="text-blue-400">Leaderboard</a></li>
-                    <li><a href="sign_up_link.html" class="hover:text-blue-400 transition">Sign Up</a></li>
                     <li><a href="faq.html" class="hover:text-blue-400 transition">FAQ</a></li>
                 </ul>
             </nav>
@@ -43,165 +44,148 @@
     <main class="relative pt-20 px-6">
         <div class="max-w-6xl mx-auto relative pb-20">
             
-            <h1 class="text-5xl font-extrabold text-center mb-4 uppercase italic tracking-tighter">
+            <h1 id="main-title" class="text-5xl font-extrabold text-center mb-4 uppercase italic tracking-tighter">
                 Squadron <span class="text-blue-600">Standings</span>
             </h1>
             
             <div class="flex justify-center items-center gap-4 mb-12">
-                <span id="status-light" class="flex items-center text-[10px] text-green-600 font-bold uppercase">
-                    <span class="w-2 h-2 bg-green-500 rounded-full mr-2 animate-pulse"></span> Uplink Active
-                </span>
+                <span id="status-light" class="flex items-center text-[10px] font-bold uppercase">
+                    </span>
                 <span class="text-[10px] text-gray-400 font-mono uppercase">
-                    Last Sync: <span id="last-updated">In Transit...</span>
+                    Last Sync: <span id="last-updated">Checking...</span>
                 </span>
             </div>
 
-            <section class="mb-16">
-                <h2 class="text-2xl font-bold mb-4 text-gray-700 uppercase tracking-tighter border-l-4 border-yellow-400 pl-4">
-                    Light Recon <span class="text-gray-400 text-sm font-normal">(5 Member Teams)</span>
-                </h2>
-                <div class="bg-white border border-gray-200 rounded-lg shadow-sm overflow-hidden">
-                    <div class="overflow-x-auto">
-                        <table class="w-full text-left">
-                            <thead class="text-[10px] text-gray-400 uppercase border-b border-gray-100 bg-gray-50">
-                                <tr>
-                                    <th class="p-4 w-12 text-center">Rank</th>
-                                    <th class="p-4">Team Name</th>
-                                    <th class="p-4 text-blue-400">All Week</th>
-                                    <th class="p-4">Sun</th>
-                                    <th class="p-4">Mon</th>
-                                    <th class="p-4">Tue</th>
-                                    <th class="p-4">Wed</th>
-                                    <th class="p-4">Thu</th>
-                                    <th class="p-4">Fri</th>
-                                    <th class="p-4 text-right text-blue-600">Total</th>
-                                </tr>
-                            </thead>
-                            <tbody id="group-5-body" class="divide-y divide-gray-100 font-bold"></tbody>
-                        </table>
-                    </div>
+            <div id="leaderboard-container">
                 </div>
-            </section>
-
-            <section>
-                <h2 class="text-2xl font-bold mb-4 text-gray-700 uppercase tracking-tighter border-l-4 border-red-500 pl-4">
-                    Heavy Artillery <span class="text-gray-400 text-sm font-normal">(10 Member Teams)</span>
-                </h2>
-                <div class="bg-white border border-gray-200 rounded-lg shadow-sm overflow-hidden">
-                    <div class="overflow-x-auto">
-                        <table class="w-full text-left">
-                            <thead class="text-[10px] text-gray-400 uppercase border-b border-gray-100 bg-gray-50">
-                                <tr>
-                                    <th class="p-4 w-12 text-center">Rank</th>
-                                    <th class="p-4">Team Name</th>
-                                    <th class="p-4 text-blue-400">All Week</th>
-                                    <th class="p-4">Sun</th>
-                                    <th class="p-4">Mon</th>
-                                    <th class="p-4">Tue</th>
-                                    <th class="p-4">Wed</th>
-                                    <th class="p-4">Thu</th>
-                                    <th class="p-4">Fri</th>
-                                    <th class="p-4 text-right text-blue-600">Total</th>
-                                </tr>
-                            </thead>
-                            <tbody id="group-10-body" class="divide-y divide-gray-100 font-bold"></tbody>
-                        </table>
-                    </div>
-                </div>
-            </section>
 
             <p class="mt-12 text-center text-gray-400 text-[10px] uppercase tracking-[0.2em]">
-                Note: Standings are categorized by deployment size and synced with Mission Control via Google Sheets.
+                Note: Standings are synchronized via Mission Control encrypted uplink.
             </p>
         </div>
     </main>
 
     <script>
-        const targetUrl = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTU_jGZcXybn5i5ZQeAs0AbqM4m5H5lhfMflHQVCr6p4G4KIAPqH39pjwqu-6-WntnnZZSmMkt5Bf9j/pub?gid=1268329623&single=true&output=csv"; 
+        /**
+         * TOGGLE SETTINGS
+         * Set IS_SHUTDOWN to true to show the alien message.
+         * Set IS_SHUTDOWN to false to show the actual leaderboard.
+         */
+        const IS_SHUTDOWN = true; 
+
+        const targetUrl = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTU_jGZcXybn5i5ZQeAs0AbqM4m5H5lhfMflHQVCr6p4G4KIAPqH39pjwqu-6-WntnnZZSmMkt5Bf9j/pub?gid=1268329623&single=true&output=csv";
+
+        function showAlienMessage() {
+            const container = document.getElementById('leaderboard-container');
+            const statusLight = document.getElementById('status-light');
+            const lastUpdated = document.getElementById('last-updated');
+            const title = document.getElementById('main-title');
+
+            title.innerHTML = `Squadron <span class="text-red-600">Severed</span>`;
+            lastUpdated.innerText = "SIGNAL LOST";
+            statusLight.className = "flex items-center text-[10px] font-bold uppercase text-red-600 glitch";
+            statusLight.innerHTML = `<span class="w-2 h-2 bg-red-600 rounded-full mr-2"></span> 🛰️ CRITICAL UPLINK FAILURE`;
+
+            container.innerHTML = `
+                <div class="bg-black border-2 border-red-600 rounded-lg p-12 text-center text-green-400 font-mono shadow-2xl">
+                    <h2 class="text-3xl font-black text-red-600 mb-6">!! SECURITY BREACH !!</h2>
+                    <p class="mb-8 border border-green-900 p-6 bg-green-950/20 text-sm">
+                        LEADERBOARD ENCRYPTION BYPASSED BY "THE VISITORS." <br><br>
+                        MISSION CONTROL HAS LOST SIGHT OF LIVE TELEMETRY. THE DATA FRAGMENTS ARE GONE.
+                    </p>
+                    <div class="text-white text-xl uppercase italic">
+                        "Finish the week to finish the mission."
+                    </div>
+                </div>
+            `;
+        }
 
         async function fetchLeaderboard() {
-            const body5 = document.getElementById('group-5-body');
-            const body10 = document.getElementById('group-10-body');
-            const statusLight = document.getElementById('status-light');
-            const lastUpdatedSpan = document.getElementById('last-updated');
+            if (IS_SHUTDOWN) {
+                showAlienMessage();
+                return;
+            }
 
             try {
                 const response = await fetch(targetUrl);
-                if (!response.ok) throw new Error("Connection failed");
-                
                 const data = await response.text();
-                const rows = data.split(/\r?\n/).filter(row => row.trim() !== "").slice(1); 
+                const rows = data.split(/\r?\n/).filter(row => row.trim() !== "").slice(1);
                 
                 let teams5 = [];
                 let teams10 = [];
 
                 rows.forEach(row => {
-                    const columns = row.split(/,(?=(?:(?:[^"]*"){2})*[^"]*$)/);
-                    
-                    if (columns.length >= 11) {
-                        const teamObj = {
-                            groupSize: columns[0].trim(),
-                            teamName: columns[1].replace(/"/g, ""),
-                            allWeek: columns[3] || "0", // Mapping the "All Week" column
-                            sun: columns[4] || "0",
-                            mon: columns[5] || "0",
-                            tue: columns[6] || "0",
-                            wed: columns[7] || "0",
-                            thu: columns[8] || "0",
-                            fri: columns[9] || "0",
-                            total: parseFloat(columns[10]) || 0 
+                    const cols = row.split(/,(?=(?:(?:[^"]*"){2})*[^"]*$)/);
+                    if (cols.length >= 11) {
+                        const team = {
+                            size: cols[0].trim(),
+                            name: cols[1].replace(/"/g, ""),
+                            allWeek: cols[3] || "0",
+                            sun: cols[4] || "0", mon: cols[5] || "0", tue: cols[6] || "0",
+                            wed: cols[7] || "0", thu: cols[8] || "0", fri: cols[9] || "0",
+                            total: parseFloat(cols[10]) || 0
                         };
-
-                        if (teamObj.groupSize === "5") {
-                            teams5.push(teamObj);
-                        } else if (teamObj.groupSize === "10") {
-                            teams10.push(teamObj);
-                        }
+                        if (team.size === "5") teams5.push(team);
+                        else if (team.size === "10") teams10.push(team);
                     }
                 });
 
-                const sortByTotal = (a, b) => b.total - a.total;
-                teams5.sort(sortByTotal);
-                teams10.sort(sortByTotal);
+                const sort = (a, b) => b.total - a.total;
+                teams5.sort(sort);
+                teams10.sort(sort);
 
-                const renderRows = (teamList) => {
-                    return teamList.map((team, index) => {
-                        const rank = index + 1;
-                        const rankColor = rank === 1 ? 'text-yellow-500' : rank === 2 ? 'text-gray-400' : rank === 3 ? 'text-orange-500' : 'text-gray-300';
-                        
-                        return `
-                            <tr class="hover:bg-blue-50/50 transition duration-300 border-b border-gray-100 text-sm">
-                                <td class="p-4 text-center font-black ${rankColor}">#${rank}</td>
-                                <td class="p-4 uppercase text-gray-900">${team.teamName}</td>
-                                <td class="p-4 font-mono text-blue-500">${team.allWeek}</td>
-                                <td class="p-4 font-mono text-gray-400">${team.sun}</td>
-                                <td class="p-4 font-mono text-gray-400">${team.mon}</td>
-                                <td class="p-4 font-mono text-gray-400">${team.tue}</td>
-                                <td class="p-4 font-mono text-gray-400">${team.wed}</td>
-                                <td class="p-4 font-mono text-gray-400">${team.thu}</td>
-                                <td class="p-4 font-mono text-gray-400">${team.fri}</td>
-                                <td class="p-4 text-right font-mono text-lg text-blue-600">${team.total}</td>
-                            </tr>
-                        `;
-                    }).join('');
-                };
+                const renderTable = (title, color, teams) => `
+                    <section class="mb-16">
+                        <h2 class="text-2xl font-bold mb-4 text-gray-700 uppercase border-l-4 ${color} pl-4">${title}</h2>
+                        <div class="bg-white border rounded-lg overflow-hidden shadow-sm">
+                            <div class="overflow-x-auto">
+                                <table class="w-full text-left text-sm">
+                                    <thead class="bg-gray-50 text-[10px] text-gray-400 uppercase">
+                                        <tr>
+                                            <th class="p-4 w-12 text-center">Rank</th>
+                                            <th class="p-4">Team</th>
+                                            <th class="p-4 text-blue-500">All Week</th>
+                                            <th class="p-4">Sun</th><th class="p-4">Mon</th><th class="p-4">Tue</th>
+                                            <th class="p-4">Wed</th><th class="p-4">Thu</th><th class="p-4">Fri</th>
+                                            <th class="p-4 text-right text-blue-600">Total</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="divide-y divide-gray-100 font-bold">
+                                        ${teams.map((t, i) => `
+                                            <tr class="hover:bg-blue-50/50 transition">
+                                                <td class="p-4 text-center ${i===0?'text-yellow-500':i===1?'text-gray-400':i===2?'text-orange-500':'text-gray-300'}">#${i+1}</td>
+                                                <td class="p-4 uppercase">${t.name}</td>
+                                                <td class="p-4 font-mono text-blue-500">${t.allWeek}</td>
+                                                <td class="p-4 font-mono text-gray-400">${t.sun}</td>
+                                                <td class="p-4 font-mono text-gray-400">${t.mon}</td>
+                                                <td class="p-4 font-mono text-gray-400">${t.tue}</td>
+                                                <td class="p-4 font-mono text-gray-400">${t.wed}</td>
+                                                <td class="p-4 font-mono text-gray-400">${t.thu}</td>
+                                                <td class="p-4 font-mono text-gray-400">${t.fri}</td>
+                                                <td class="p-4 text-right font-mono text-blue-600 text-lg">${t.total}</td>
+                                            </tr>`).join('')}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </section>`;
 
-                body5.innerHTML = teams5.length ? renderRows(teams5) : '<tr><td colspan="10" class="p-10 text-center text-gray-400">No Squads Deployed</td></tr>';
-                body10.innerHTML = teams10.length ? renderRows(teams10) : '<tr><td colspan="10" class="p-10 text-center text-gray-400">No Squads Deployed</td></tr>';
-                
-                const now = new Date();
-                lastUpdatedSpan.innerText = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' });
-                statusLight.innerHTML = '<span class="w-2 h-2 bg-green-500 rounded-full mr-2 animate-pulse"></span> Uplink Active';
+                document.getElementById('leaderboard-container').innerHTML = 
+                    renderTable('Light Recon (5)', 'border-yellow-400', teams5) +
+                    renderTable('Heavy Artillery (10)', 'border-red-500', teams10);
 
-            } catch (error) {
-                console.error("Leaderboard Error:", error);
-                statusLight.innerHTML = '<span class="text-red-500 font-bold uppercase text-[10px]">🛰️ Uplink Failure</span>';
-                lastUpdatedSpan.innerText = "Error";
+                document.getElementById('status-light').className = "flex items-center text-[10px] font-bold uppercase text-green-600";
+                document.getElementById('status-light').innerHTML = `<span class="w-2 h-2 bg-green-500 rounded-full mr-2 animate-pulse"></span> Uplink Active`;
+                document.getElementById('last-updated').innerText = new Date().toLocaleTimeString();
+
+            } catch (e) {
+                console.error(e);
+                showAlienMessage();
             }
         }
 
         fetchLeaderboard();
-        setInterval(fetchLeaderboard, 60000);
+        if (!IS_SHUTDOWN) setInterval(fetchLeaderboard, 60000);
     </script>
 </body>
 </html>
